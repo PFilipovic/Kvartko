@@ -1,69 +1,45 @@
 import Image from "next/image";
+import heroImageDesktop from "@/public/hero-image-desktop.jpg";
+import Link from "next/link";
+import PropertyCard from "./components/PropertyCard";
+import { properties } from "./data/properties";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <main>
+      <div className="relative h-dvh w-full md:h-[500px]">
         <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src={heroImageDesktop}
+          alt="hero image"
+          loading="eager"
           priority
+          fill
+          sizes="100vw"
+          className="object-cover brightness-60"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/50 to-transparent" />
+        <div className="absolute inset-0 flex items-center justify-center p-8 md:justify-between">
+          <div className="absolute flex flex-col items-center gap-4 text-center md:items-start md:text-left md:max-w-[50%]">
+            <p className="text-l text-shadow-lg text-white flex  mx-5 md:text-xl">Usporedi nekretnine prema lokaciji, sadržajima i kvaliteti života.</p>
+            <h1 className="text-3xl text-shadow-lg font-bold text-white flex  mx-5 md:text-4xl">Pronađi dom u kvartu  koji ti odgovara.</h1>
+            <p className="text-sm text-shadow-lg text-white flex  mx-5 md:text-xl">Od urbane sredine do mirnih obiteljskih kvartova.</p>
+            <Link href="/neighborhoods" aria-label="Pretraži nekretnine"  className="bg-lime-300 text-center w-36 text-sm font-medium p-2 m-auto mt-10 transition delay-100 duration-200 ease-in-out hover:-translate-y-1 hover:scale-105 cursor-pointer rounded-full hover:bg-lime-400">
+              Započni pretragu
+            </Link>
+          </div>
+          <div className="hidden ml-auto h-[80%] w-[40%] bg-white/10 backdrop-contrast-100 p-8 md:block"></div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      </div>
+      <section className="md:mx-10 lg:mx-20">
+        <h2 className="text-2xl my-10 text-center font-semibold">
+          Novi oglasi
+        </h2>
+      <div className="mx-auto flex w-full max-w-7xl flex-wrap justify-center gap-5 px-2">
+        {properties.map((property) => (
+          <PropertyCard key={property.id} property={property} />
+        ))}
+      </div>
+      </section>
+    </main>
+);
 }
